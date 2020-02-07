@@ -33,6 +33,7 @@ class EntryController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel'  => $searchModel,
+            'user_id'  => 0,
         ]);
     }
 
@@ -106,5 +107,45 @@ class EntryController extends Controller
             }
 
         return [$model, $activePanels];
+    }
+    
+    /**
+     * Lists all AuditEntry models.
+     * @return mixed
+     */
+    public function actionVendor($user_id)
+    {
+		
+        $searchModel = new AuditEntrySearch;
+		Yii::$app->request->get('AuditEntrySearch')['user_id'] = $user_id;
+	
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel'  => $searchModel,
+			'user_id'  => $user_id,
+			'type' => 'vendor',
+        ]);
+    }
+	
+	/**
+     * Lists all AuditEntry models.
+     * @return mixed
+     */
+    public function actionMember($user_id)
+    {
+		
+        $searchModel = new AuditEntrySearch;
+		Yii::$app->request->get('AuditEntrySearch')['user_id'] = $user_id;
+	
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel'  => $searchModel,
+            'user_id'  => $user_id,
+			'type' => 'member',
+        ]);
     }
 }

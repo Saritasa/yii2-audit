@@ -1,5 +1,5 @@
 {
-    "name": "bedezign/yii2-audit",
+    "name": "saritasa/yii2-audit",
     "description": "Audit module for Yii2",
     "keywords": ["yii2", "audit", "trail", "module"],
     "type": "yii2-extension",

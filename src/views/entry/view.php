@@ -82,11 +82,13 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
         <div class="col-md-2">
             <div class="list-group">
                 <?php
-                foreach ($panels as $id => $panel) {
-                    $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getLabel();
-                    echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
-                        'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
-                    ]);
+			    foreach ($panels as $id => $panel) {
+					 if($id != 'audit/log' && $id != 'audit/db'){
+						$label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getLabel();
+						echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
+							'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
+						]);
+					 }
                 }
                 ?>
             </div>

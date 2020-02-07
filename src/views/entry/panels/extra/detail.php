@@ -4,7 +4,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-echo Html::tag('h1', $panel->name);
+echo '<h1>' . Yii::t('audit', 'Extra Data') . '</h1>';
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,

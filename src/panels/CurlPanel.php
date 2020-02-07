@@ -91,10 +91,8 @@ class CurlPanel extends DataStoragePanel
 
         $this->data[$id] = [];
 
-        if ($url) {
+        if ($url)
             $this->data[$id]['starting_url'] = $url;
-            curl_setopt($handle, CURLOPT_URL, $url);
-        }
 
         if ($postData)
             $this->data[$id]['post'] = $postData;
@@ -182,6 +180,7 @@ class CurlPanel extends DataStoragePanel
     public function registerAssets($view)
     {
         GridViewAsset::register($view);
+        $view->registerJs('$(".audit_curl_post_toggle").click(function() {$(this).next().next().toggle().next().toggle(); });');
     }
 
     /**
@@ -208,8 +207,6 @@ class CurlPanel extends DataStoragePanel
         if (!is_resource($resource))
             return false;
 
-        $parts = explode('#', (string)$resource);
-        return array_pop($parts);
+        return array_pop(explode('#', (string)$resource));
     }
-
 }

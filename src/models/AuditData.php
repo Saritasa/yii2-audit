@@ -2,7 +2,6 @@
 
 namespace bedezign\yii2\audit\models;
 use bedezign\yii2\audit\components\db\ActiveRecord;
-use Yii;
 
 /**
  * AuditData
@@ -13,7 +12,6 @@ use Yii;
  * @property int    $entry_id
  * @property string $type
  * @property string $data
- * @property string $created
  *
  * @property AuditEntry    $entry
  *
@@ -49,17 +47,4 @@ class AuditData extends ActiveRecord
         return static::find()->where(['entry_id' => $entry_id, 'type' => $type])->one();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id'        => Yii::t('audit', 'ID'),
-            'entry_id'  => Yii::t('audit', 'Entry ID'),
-            'created'   => Yii::t('audit', 'Created'),
-            'message'   => Yii::t('audit', 'Type'),
-            'code'      => Yii::t('audit', 'Data'),
-        ];
-    }
 }

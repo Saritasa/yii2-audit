@@ -3,12 +3,15 @@
 namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\Audit;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+
+use bedezign\yii2\audit\models\AuditEntry;
 use yii\db\ActiveQuery;
 
 /**
- * AuditEntrySearch
+ * Class AuditEntrySearch
  * @package bedezign\yii2\audit\models
  */
 class AuditEntrySearch extends AuditEntry
@@ -20,7 +23,7 @@ class AuditEntrySearch extends AuditEntry
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'user_id', 'ip', 'created', 'duration', 'memory_max', 'route', 'request_method', 'ajax'], 'safe'],
+            [['id', 'user_id', 'created', 'duration', 'memory_max', 'route','ip', 'request_method', 'ajax'], 'safe'],
         ];
     }
 
@@ -49,7 +52,9 @@ class AuditEntrySearch extends AuditEntry
                 ]
             ]
         ]);
-
+		if(isset($params['user_id']))
+			$params['AuditEntrySearch']['user_id'] = $params['user_id'];
+		
         // load the search form data and validate
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -58,11 +63,11 @@ class AuditEntrySearch extends AuditEntry
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $this->filterUserId($this->user_id, $query);
-        $query->andFilterWhere(['ip' => $this->ip]);
         $query->andFilterWhere(['route' => $this->route]);
         $query->andFilterWhere(['request_method' => $this->request_method]);
         $query->andFilterWhere(['ajax' => $this->ajax]);
         $query->andFilterWhere(['duration' => $this->duration]);
+        $query->andFilterWhere(['LIKE','ip',  $this->ip]);
         $query->andFilterWhere(['memory_max' => $this->memory_max]);
         $query->andFilterWhere(['like', 'created', $this->created]);
         $query->with(['linkedErrors', 'javascripts']);
@@ -102,13 +107,13 @@ class AuditEntrySearch extends AuditEntry
      */
     protected function filterUserId($userId, $query)
     {
-        if (strlen($userId)) {
+        if (strlen($this->user_id)) {
             if (!is_numeric($userId) && $callback = Audit::getInstance()->userFilterCallback) {
                 $userId = call_user_func($callback, $userId);
-            } else {
-                $userId = intval($userId) ?: 0;
             }
-            $query->andWhere(['user_id' => $userId]);
+            else
+                $userId = intval($this->user_id) ?: 0;
         }
+        $query->andFilterWhere(['user_id' => $userId]);
     }
 }

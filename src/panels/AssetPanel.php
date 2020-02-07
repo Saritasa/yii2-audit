@@ -33,5 +33,4 @@ class AssetPanel extends \yii\debug\panels\AssetPanel
         }
         return null;
     }
-
 }

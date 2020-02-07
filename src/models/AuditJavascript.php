@@ -6,6 +6,7 @@
 namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\components\db\ActiveRecord;
+use bedezign\yii2\audit\components\Helper;
 use Yii;
 
 /**
@@ -15,7 +16,6 @@ use Yii;
  * @property int    $id
  * @property int    $entry_id
  * @property string $created
- * @property string $type
  * @property string $message
  * @property string $origin
  * @property string $data
@@ -50,7 +50,6 @@ class AuditJavascript extends ActiveRecord
             'id'        => Yii::t('audit', 'ID'),
             'entry_id'  => Yii::t('audit', 'Entry ID'),
             'created'   => Yii::t('audit', 'Created'),
-            'type'      => Yii::t('audit', 'Type'),
             'message'   => Yii::t('audit', 'Message'),
             'origin'    => Yii::t('audit', 'Origin'),
             'data'      => Yii::t('audit', 'Data'),

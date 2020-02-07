@@ -3,11 +3,8 @@
 
 use yii\bootstrap\Tabs;
 use yii\helpers\Html;
-use bedezign\yii2\audit\components\Helper;
+use yii\helpers\VarDumper;
 
-if (!function_exists('formatDataString')) {
-    function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) { $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; break; }}}
-}
 
 $post    = empty($request['post']) ? false : $request['post'];
 $headers = empty($request['headers']) ? false : $request['headers'];
@@ -15,7 +12,6 @@ $content = empty($request['content']) ? false : $request['content'];
 $log     = empty($request['log']) ? false : $request['log'];
 unset($request['post'], $request['content'], $request['headers'], $request['log']);
 
-$preformatted = ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'];
 $formatter = \Yii::$app->formatter;
 
 $tabs = [
@@ -27,15 +23,24 @@ $tabs = [
 ];
 
 if ($post) {
+    $prepend = '';
+    $hide = false;
+    if (is_string($post)) {
+        // If the post was specified as a string, make the expanded (array) version available)
+        $id = 'toggle_expanded_'. $index;
+        $prepend =
+            Html::checkbox($id, false, ['id' => $id, 'class' => 'audit_curl_post_toggle']) . ' ' . Html::label(\Yii::t('audit', 'Expand'), $id) .  Html::tag('div', $post);
+        $result = [];
+        parse_str($post, $result);
+        $post = $result;
+        $hide = true;
+    }
     $tabs[] = [
         'label' => \Yii::t('audit', 'POST'),
-        'content' => Html::tag('div', $post, $preformatted)
+        'content' => Html::tag('div', $prepend .
+            Html::tag('div', VarDumper::dumpAsString($post, 15), ['style' => 'display: ' . ($hide ? 'none' : 'block')]),
+            ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'])
     ];
-    formatDataString(
-        ['formatAsQuery' => \Yii::t('audit', 'POST - Query'), 'formatAsJSON' => \Yii::t('audit', 'POST - JSON'),
-            'formatAsXML' => \Yii::t('audit', 'POST - XML'), 'formatAsHTML' => \Yii::t('audit', 'POST - HTML')],
-        $post, $preformatted, $tabs
-    );
 }
 
 if ($headers)
@@ -44,24 +49,19 @@ if ($headers)
         'content' => Html::tag('div', $formatter->asNtext(implode('', $headers)), ['class' => 'well'])
     ];
 
-if ($content) {
+if ($content)
     $tabs[] = [
         'label' => \Yii::t('audit', 'Content'),
-        'content' => Html::tag('div', $formatter->asText($content), $preformatted)
+        'content' => Html::tag('div', $formatter->asText($content), ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'])
     ];
-    formatDataString(
-        ['formatAsQuery' => \Yii::t('audit', 'Content - Query'), 'formatAsJSON' => \Yii::t('audit', 'Content - JSON'),
-            'formatAsXML' => \Yii::t('audit', 'Content - XML'), 'formatAsHTML' => \Yii::t('audit', 'Content - HTML')],
-        $content, $preformatted, $tabs
-    );
-}
 
 if ($log)
     $tabs[] = [
         'label' => \Yii::t('audit', 'Log'),
-        'content' => Html::tag('div', $formatter->asText($log), $preformatted)
+        'content' => Html::tag('div', $formatter->asNtext($log), ['class' => 'well', 'style' => 'overflow: auto'])
     ];
 
 
 echo Html::tag('h2', \Yii::t('audit', 'Request #{id}', ['id' => $index])),
         Tabs::widget(['items' => $tabs]);
+

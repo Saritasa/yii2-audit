@@ -66,11 +66,7 @@ class AuditTrailSearch extends AuditTrail
         $query->andFilterWhere(['action' => $this->action]);
         $query->andFilterWhere(['like', 'model', $this->model]);
         $query->andFilterWhere(['model_id' => $this->model_id]);
-        if (is_array($this->field)) {
-            $query->andFilterWhere(['in', 'field', $this->field]);
-        } else {
-            $query->andFilterWhere(['field' => $this->field]);
-        }
+        $query->andFilterWhere(['field' => $this->field]);
         $query->andFilterWhere(['like', 'created', $this->created]);
 
         return $dataProvider;

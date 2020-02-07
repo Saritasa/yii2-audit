@@ -10,7 +10,6 @@
 
 namespace bedezign\yii2\audit;
 
-use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
 use Yii;
 use yii\base\ActionEvent;
@@ -18,6 +17,7 @@ use yii\base\Application;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\base\Module;
+use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -41,9 +41,9 @@ use yii\helpers\ArrayHelper;
  * @package bedezign\yii2\audit
  * @property AuditEntry $entry
  *
- * @method void data($type, $data)                                                                      @see ExtraDataPanel::trackData()
- * @method \bedezign\yii2\audit\models\AuditError exception(\Exception $exception)                      @see ErrorPanel::log()
- * @method \bedezign\yii2\audit\models\AuditError errorMessage($message, $code, $file, $line, $trace)   @see ErrorPanel::logMessage()
+ * @method void data($type, $data)                                      @see ExtraDataPanel::trackData()
+ * @method void exception(\Exception $exception)                        @see AuditError::log()
+ * @method void errorMessage($message, $code, $file, $line, $trace)     @see AuditError::logMessage()
  */
 class Audit extends Module
 {
@@ -60,12 +60,12 @@ class Audit extends Module
     public $db = 'db';
 
     /**
-     * @var string[] Action or list of actions to track. '*' is allowed as the first or last character to use as wildcard.
+     * @var string[] Action or list of actions to track. '*' is allowed as the last character to use as wildcard.
      */
     public $trackActions = ['*'];
 
     /**
-     * @var string[] Action or list of actions to ignore. '*' is allowed as the first or last character to use as wildcard (eg 'debug/*').
+     * @var string[] Action or list of actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*').
      */
     public $ignoreActions = [];
 
@@ -102,11 +102,6 @@ class Audit extends Module
     public $userIdentifierCallback = false;
 
     /**
-     * @var string The callback to get a user id.
-     */
-    public $userIdCallback = false;
-
-    /**
      * @var string Will be called to translate text in the user filter into a (or more) user id's
      */
     public $userFilterCallback = false;
@@ -118,13 +113,7 @@ class Audit extends Module
     public $batchSave = true;
 
     /**
-     * @var array Default log levels to filter and process
-     */
-    public $logConfig = ['levels' => ['error', 'warning', 'info', 'profile']];
-
-
-    /**
-     * @var array|Panel[] list of panels that should be active/tracking/available during the auditing phase.
+     * @var array list of panels that should be active/tracking/available during the auditing phase.
      * If the value is a simple string, it is the identifier of an internal panel to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is either a new panel or a panel override (if you specify a core id).
      * It is important that the key is unique, as this is the identifier used to store any data associated with the panel.
@@ -139,8 +128,6 @@ class Audit extends Module
         'audit/log',
         'audit/mail',
         'audit/profiling',
-        'audit/trail',
-        'audit/javascript',
         // 'audit/asset',
         // 'audit/config',
 
@@ -156,17 +143,13 @@ class Audit extends Module
      * This only accepts regular definitions ('<key>' => '<array>'), but the core class will be added if needed
      * Take a look at the [module configuration](docs/module-configuration.md) for more information.
      */
-    public $panelsMerge = [];
+    public $panelsMerge = [
+    ];
 
     /**
      * @var LogTarget
      */
     public $logTarget;
-
-    /**
-     * @see \yii\debug\Module::$traceLine
-     */
-    public $traceLine = \yii\debug\Module::DEFAULT_IDE_TRACELINE;
 
     /**
      * @var array
@@ -187,12 +170,8 @@ class Audit extends Module
         'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
         'audit/extra'      => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
         'audit/curl'       => ['class' => 'bedezign\yii2\audit\panels\CurlPanel'],
-        'audit/soap'       => ['class' => 'bedezign\yii2\audit\panels\SoapPanel'],
     ];
 
-    /**
-     * @var array
-     */
     private $_panelFunctions = [];
 
     /**
@@ -208,19 +187,13 @@ class Audit extends Module
         parent::init();
         $app = Yii::$app;
 
-        // check if the module has been installed (prevents errors while installing)
-        try {
-            $this->getDb()->getTableSchema(AuditEntry::tableName());
-        } catch (\Exception $e) {
-            return;
-        }
-
         // Before action triggers a new audit entry
         $app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onBeforeAction']);
         // After request finalizes the audit entry.
         $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
 
-        $this->activateLogTarget();
+        // Activate the logging target
+        $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this);
 
         // Boot all active panels
         $this->normalizePanelConfiguration();
@@ -266,37 +239,12 @@ class Audit extends Module
         $this->_panelFunctions[$name] = $callback;
     }
 
-    /**
-     * @param \yii\debug\Panel $panel
-     */
-    public function registerPanel(\yii\debug\Panel $panel)
-    {
-        $this->panels[$panel->id] = $panel;
-    }
-
-    /**
-     * @param string $name
-     * @param array $params
-     * @return mixed
-     */
     public function __call($name, $params)
     {
         if (!isset($this->_panelFunctions[$name]))
             throw new \yii\base\InvalidCallException("Unknown panel function '$name'");
 
         return call_user_func_array($this->_panelFunctions[$name], $params);
-    }
-
-    public function activateLogTarget()
-    {
-        $app = Yii::$app;
-
-        // Activate the logging target
-        if (empty($app->getLog()->targets['audit'])) {
-            $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this, $this->logConfig);
-        } else {
-            $this->logTarget = $app->getLog()->targets['audit'];
-        }
     }
 
     /**
@@ -310,16 +258,12 @@ class Audit extends Module
     /**
      * @param bool $create
      * @param bool $new
-     * @return AuditEntry
+     * @return AuditEntry|static
      */
     public function getEntry($create = false, $new = false)
     {
-        $entry = new AuditEntry();
-        $tableSchema = $entry->getDb()->schema->getTableSchema($entry->tableName());
-        if ($tableSchema) {
-            if ((!$this->_entry && $create) || $new) {
-                $this->_entry = AuditEntry::create(true);
-            }
+        if ((!$this->_entry && $create) || $new) {
+            $this->_entry = AuditEntry::create(true);
         }
         return $this->_entry;
     }
@@ -337,17 +281,6 @@ class Audit extends Module
             return call_user_func($this->userIdentifierCallback, $user_id);
         }
         return $user_id;
-    }
-
-    /**
-     * @return int|mixed|null|string
-     */
-    public function getUserId()
-    {
-        if ($this->userIdCallback && is_callable($this->userIdCallback)) {
-            return call_user_func($this->userIdCallback);
-        }
-        return (Yii::$app instanceof \yii\web\Application && Yii::$app->user) ? Yii::$app->user->id : null;
     }
 
     /**
@@ -413,7 +346,7 @@ class Audit extends Module
                 $panels[$value] = $this->_corePanels[$value];
             }
             else {
-                // The key contains the identifier and the value is either a class name or a full array
+                // The key contains the identifer and the value is either a class name or a full array
                 $panels[$key] = is_string($value) ? ['class' => $value] : $value;
             }
         }
@@ -454,21 +387,6 @@ class Audit extends Module
     }
 
     /**
-     * @param string $className
-     * @return bool|string
-     */
-    public static function findPanelIdentifier($className)
-    {
-        $audit = Audit::getInstance();
-        foreach ($audit->panels as $panel) {
-            if ($panel->className() == $className) {
-                return $panel->id;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Verifies a route against a given list and returns whether it matches or not.
      * Entries in the list are allowed to end with a '*', which means that a substring will be used for the match
      * instead of a full compare.
@@ -485,12 +403,6 @@ class Audit extends Module
             if ($compare[$len - 1] == '*') {
                 $compare = rtrim($compare, '*');
                 if (substr($route, 0, $len - 1) === $compare)
-                    return true;
-            }
-
-            if ($compare[0] == '*') {
-                $compare = ltrim($compare, '*');
-                if (substr($route, - ($len - 1)) === $compare)
                     return true;
             }
 

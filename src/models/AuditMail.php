@@ -5,8 +5,15 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\db\ActiveRecord;
+use bedezign\yii2\audit\components\Helper;
+use Swift_Message;
+use Swift_Mime_Attachment;
+use Swift_Mime_MimePart;
 use Yii;
+use yii\base\Event;
+use yii\mail\MessageInterface;
 
 /**
  * AuditMail
@@ -30,7 +37,6 @@ use Yii;
  */
 class AuditMail extends ActiveRecord
 {
-    protected $serializeAttributes = ['text', 'html', 'data'];
 
     /**
      * @inheritdoc
@@ -46,6 +52,53 @@ class AuditMail extends ActiveRecord
     public function getEntry()
     {
         return $this->hasOne(AuditEntry::className(), ['id' => 'entry_id']);
+    }
+
+    /**
+     * @param Event $event
+     * @return null|static
+     */
+    public static function record($event)
+    {
+        /* @var $message MessageInterface */
+        $message = $event->message;
+        $entry = Audit::getInstance()->getEntry(true);
+
+        $mail = new static();
+        $mail->entry_id = $entry->id;
+        $mail->successful = $event->isSuccessful;
+        $mail->from = self::convertParams($message->getFrom());
+        $mail->to = self::convertParams($message->getTo());
+        $mail->reply = self::convertParams($message->getReplyTo());
+        $mail->cc = self::convertParams($message->getCc());
+        $mail->bcc = self::convertParams($message->getBcc());
+        $mail->subject = $message->getSubject();
+
+        // add more information when message is a SwiftMailer message
+        if ($message instanceof yii\swiftmailer\Message) {
+            /* @var $swiftMessage Swift_Message */
+            $swiftMessage = $message->getSwiftMessage();
+            if ($swiftMessage->getChildren()) {
+                foreach ($swiftMessage->getChildren() as $part) {
+                    /* @var $part Swift_Mime_MimePart */
+                    if ($part instanceof Swift_Mime_Attachment) {
+                        continue;
+                    }
+                    $contentType = $part->getContentType();
+                    if ($contentType == 'text/plain') {
+                        $mail->text = Helper::compress($part->getBody());
+                    } elseif ($contentType == 'text/html') {
+                        $mail->html = Helper::compress($part->getBody());
+                    }
+                }
+            } elseif ($message->getSwiftMessage()->getContentType() == 'text/html') {
+                $mail->html = Helper::compress($message->getSwiftMessage()->getBody());
+            }
+        }
+
+        $mail->data = Helper::compress($message->toString());
+
+        return $mail->save(false) ? $mail : null;
     }
 
     /**
@@ -70,4 +123,15 @@ class AuditMail extends ActiveRecord
         ];
     }
 
+    /**
+     * @param $attr
+     * @return string
+     */
+    private static function convertParams($attr)
+    {
+        if (is_array($attr)) {
+            $attr = implode(', ', array_keys($attr));
+        }
+        return $attr;
+    }
 }

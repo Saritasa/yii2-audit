@@ -22,5 +22,4 @@ class ConfigPanel extends \yii\debug\panels\ConfigPanel
             'panel' => $this,
         ]);
     }
-
 }

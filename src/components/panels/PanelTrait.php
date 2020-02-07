@@ -3,7 +3,6 @@
 namespace bedezign\yii2\audit\components\panels;
 
 use bedezign\yii2\audit\Audit;
-use bedezign\yii2\audit\models\AuditData;
 use bedezign\yii2\audit\models\AuditEntry;
 use yii\helpers\Url;
 use yii\web\View;
@@ -16,43 +15,21 @@ use yii\web\View;
  * @property array|mixed $data
  * @property string $id
  * @property string $tag
- * @property AuditEntry $model
  * @method string getName()
  */
 trait PanelTrait
 {
-    /**
-     * @var int Maximum age (in days) of the data before it is cleaned
-     */
-    public $maxAge = null;
-
     /**
      * @var AuditEntry
      */
     protected $_model;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
         return $this->getName() . ' <small>(' . count($this->data) . ')</small>';
-    }
-
-    /**
-     * @return array|bool
-     */
-    public function getIndexUrl()
-    {
-        return false;
-    }
-
-    /**
-     * @return string|bool
-     */
-    public function getChart()
-    {
-        return false;
     }
 
     /**
@@ -93,20 +70,4 @@ trait PanelTrait
     {
 
     }
-
-    /**
-     * @param int|null $maxAge
-     * @return int
-     */
-    public function cleanup($maxAge = null)
-    {
-        $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
-        if ($maxAge === null)
-            return false;
-        return AuditData::deleteAll('type = :type AND created <= :created', [
-            ':type' => $this->id,
-            ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
-    }
-
 }

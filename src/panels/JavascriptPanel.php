@@ -3,8 +3,6 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\panels\Panel;
-use bedezign\yii2\audit\components\panels\RendersSummaryChartTrait;
-use bedezign\yii2\audit\models\AuditJavascript;
 use bedezign\yii2\audit\models\AuditJavascriptSearch;
 use Yii;
 use yii\grid\GridViewAsset;
@@ -15,18 +13,16 @@ use yii\grid\GridViewAsset;
  */
 class JavascriptPanel extends Panel
 {
-    use RendersSummaryChartTrait;
-
     /**
      * @inheritdoc
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Javascripts');
+        return \Yii::t('audit', 'Javascript');
     }
 
     /**
-     * @inheritdoc
+     * @return string
      */
     public function getLabel()
     {
@@ -61,49 +57,9 @@ class JavascriptPanel extends Panel
     /**
      * @inheritdoc
      */
-    public function getIndexUrl()
-    {
-        return ['javascript/index'];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getChartModel()
-    {
-        return AuditJavascript::className();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getChart()
-    {
-        return \Yii::$app->view->render('panels/mail/chart', [
-            'panel' => $this,
-            'chartData' => $this->getChartData()
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function registerAssets($view)
     {
         GridViewAsset::register($view);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function cleanup($maxAge = null)
-    {
-        $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
-        if ($maxAge === null)
-            return false;
-        return AuditJavascript::deleteAll([
-            '<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))
-        ]);
     }
 
 }

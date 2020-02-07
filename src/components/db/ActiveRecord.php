@@ -43,7 +43,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
                 if ($this->hasAttribute($attribute))
-                    $this->$attribute = [Helper::serialize($this->$attribute, false), \PDO::PARAM_LOB];
+                    $this->$attribute = Helper::serialize($this->$attribute, false);
 
         return parent::beforeSave($insert);
     }
@@ -58,14 +58,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
-                if ($this->hasAttribute($attribute)) {
-                    if (is_array($this->$attribute)) {
-                        // Get rid of the extra PDO parameter type if needed
-                        $array = $this->$attribute;
-                        $this->$attribute = $array[0];
-                    }
+                if ($this->hasAttribute($attribute))
                     $this->$attribute = Helper::unserialize($this->$attribute);
-                }
     }
 
     /**

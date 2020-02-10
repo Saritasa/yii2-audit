@@ -1,6 +1,6 @@
 <?php
 
-namespace bedezign\yii2\audit\components\panels;
+namespace saritasa\yii2\audit\components\panels;
 
 class DataStoragePanel extends \yii\debug\Panel
 {

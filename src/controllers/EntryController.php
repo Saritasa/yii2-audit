@@ -1,16 +1,16 @@
 <?php
 
-namespace bedezign\yii2\audit\controllers;
+namespace saritasa\yii2\audit\controllers;
 
-use bedezign\yii2\audit\components\web\Controller;
-use bedezign\yii2\audit\models\AuditEntry;
-use bedezign\yii2\audit\models\AuditEntrySearch;
+use saritasa\yii2\audit\components\web\Controller;
+use saritasa\yii2\audit\models\AuditEntry;
+use saritasa\yii2\audit\models\AuditEntrySearch;
 use Yii;
 use yii\web\NotFoundHttpException;
 
 /**
  * EntryController
- * @package bedezign\yii2\audit\controllers
+ * @package saritasa\yii2\audit\controllers
  */
 class EntryController extends Controller
 {
@@ -106,17 +106,17 @@ class EntryController extends Controller
 
         return [$model, $activePanels];
     }
-	
+
 	 /**
      * Lists all AuditEntry models.
      * @return mixed
      */
     public function actionVendor($user_id)
     {
-		
+
         $searchModel = new AuditEntrySearch;
 		Yii::$app->request->get('AuditEntrySearch')['user_id'] = $user_id;
-	
+
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
         return $this->render('index', [
@@ -126,17 +126,17 @@ class EntryController extends Controller
 			'type' => 'vendor',
         ]);
     }
-	
+
 	/**
      * Lists all AuditEntry models.
      * @return mixed
      */
     public function actionMember($user_id)
     {
-		
+
         $searchModel = new AuditEntrySearch;
 		Yii::$app->request->get('AuditEntrySearch')['user_id'] = $user_id;
-	
+
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
         return $this->render('index', [
@@ -146,5 +146,5 @@ class EntryController extends Controller
 			'type' => 'member',
         ]);
     }
-	
+
 }

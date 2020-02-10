@@ -1,16 +1,16 @@
 <?php
 
-namespace bedezign\yii2\audit\panels;
+namespace saritasa\yii2\audit\panels;
 
 use Yii;
-use bedezign\yii2\audit\components\panels\DataStoragePanel;
-use bedezign\yii2\audit\src\components\panels\BootstrapInterface;
+use saritasa\yii2\audit\components\panels\DataStoragePanel;
+use saritasa\yii2\audit\src\components\panels\BootstrapInterface;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridViewAsset;
 
 /**
  * ExtraDataPanel
- * @package bedezign\yii2\audit\panels
+ * @package saritasa\yii2\audit\panels
  */
 class ExtraDataPanel extends DataStoragePanel
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace bedezign\yii2\audit\commands;
+namespace saritasa\yii2\audit\commands;
 
-use bedezign\yii2\audit\Audit;
-use bedezign\yii2\audit\models\AuditData;
-use bedezign\yii2\audit\models\AuditEntry;
-use bedezign\yii2\audit\models\AuditError;
-use bedezign\yii2\audit\models\AuditJavascript;
-use bedezign\yii2\audit\models\AuditMail;
-use bedezign\yii2\audit\models\AuditTrail;
+use saritasa\yii2\audit\Audit;
+use saritasa\yii2\audit\models\AuditData;
+use saritasa\yii2\audit\models\AuditEntry;
+use saritasa\yii2\audit\models\AuditError;
+use saritasa\yii2\audit\models\AuditJavascript;
+use saritasa\yii2\audit\models\AuditMail;
+use saritasa\yii2\audit\models\AuditTrail;
 use Yii;
 use yii\db\Query;
 use yii\helpers\Html;
@@ -17,7 +17,7 @@ use yii\helpers\Url;
 /**
  * Task runner commands for Audit.
  *
- * @package bedezign\yii2\audit\commands
+ * @package saritasa\yii2\audit\commands
  */
 class AuditController extends \yii\console\Controller
 {

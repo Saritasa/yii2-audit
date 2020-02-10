@@ -1,15 +1,15 @@
 <?php
 
-namespace bedezign\yii2\audit\models;
+namespace saritasa\yii2\audit\models;
 
-use bedezign\yii2\audit\components\db\ActiveRecord;
-use bedezign\yii2\audit\components\Helper;
+use saritasa\yii2\audit\components\db\ActiveRecord;
+use saritasa\yii2\audit\components\Helper;
 use Yii;
 use yii\db\ActiveQuery;
 
 /**
  * Class AuditEntry
- * @package bedezign\yii2\audit\models
+ * @package saritasa\yii2\audit\models
  *
  * @property int               $id
  * @property string            $created

@@ -5,7 +5,7 @@ use Yii;
 use yii\base\Exception;
 use yii\db\ActiveRecord;
 
-use bedezign\yii2\audit\models\AuditTrail;
+use saritasa\yii2\audit\models\AuditTrail;
 use yii\web\Application;
 
 /**

@@ -1,7 +1,7 @@
 <?php
-namespace bedezign\yii2\audit\components;
+namespace saritasa\yii2\audit\components;
 
-use bedezign\yii2\audit\models\AuditTrail;
+use saritasa\yii2\audit\models\AuditTrail;
 use yii\base\Component;
 use yii\db\ActiveRecord;
 

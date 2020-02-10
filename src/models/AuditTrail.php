@@ -1,8 +1,8 @@
 <?php
 
-namespace bedezign\yii2\audit\models;
+namespace saritasa\yii2\audit\models;
 
-use bedezign\yii2\audit\components\db\ActiveRecord;
+use saritasa\yii2\audit\components\db\ActiveRecord;
 use Yii;
 use yii\db\ActiveQuery;
 

@@ -3,14 +3,14 @@
  * Provides a number of helper functions for the audit component
  */
 
-namespace bedezign\yii2\audit\components;
+namespace saritasa\yii2\audit\components;
 
-use bedezign\yii2\audit\Audit;
+use saritasa\yii2\audit\Audit;
 use yii\helpers\ArrayHelper;
 
 /**
  * Helper
- * @package bedezign\yii2\audit\components
+ * @package saritasa\yii2\audit\components
  */
 class Helper extends \yii\base\Object
 {

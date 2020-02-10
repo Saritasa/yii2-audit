@@ -1,7 +1,7 @@
 <?php
 
-namespace bedezign\yii2\audit\models;
-use bedezign\yii2\audit\components\db\ActiveRecord;
+namespace saritasa\yii2\audit\models;
+use saritasa\yii2\audit\components\db\ActiveRecord;
 
 /**
  * AuditData
@@ -15,7 +15,7 @@ use bedezign\yii2\audit\components\db\ActiveRecord;
  *
  * @property AuditEntry    $entry
  *
- * @package bedezign\yii2\audit\models
+ * @package saritasa\yii2\audit\models
  */
 class AuditData extends ActiveRecord
 {

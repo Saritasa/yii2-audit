@@ -1,15 +1,15 @@
 <?php
 
-namespace bedezign\yii2\audit\components\panels;
+namespace saritasa\yii2\audit\components\panels;
 
-use bedezign\yii2\audit\Audit;
-use bedezign\yii2\audit\models\AuditEntry;
+use saritasa\yii2\audit\Audit;
+use saritasa\yii2\audit\models\AuditEntry;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
  * PanelTrait
- * @package bedezign\yii2\audit\panels
+ * @package saritasa\yii2\audit\panels
  *
  * @property Audit $module
  * @property array|mixed $data

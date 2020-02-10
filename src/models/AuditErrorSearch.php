@@ -1,15 +1,15 @@
 <?php
 
-namespace bedezign\yii2\audit\models;
+namespace saritasa\yii2\audit\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-use bedezign\yii2\audit\models\AuditError;
+use saritasa\yii2\audit\models\AuditError;
 
 /**
  * AuditErrorSearch
- * @package bedezign\yii2\audit\models
+ * @package saritasa\yii2\audit\models
  */
 class AuditErrorSearch extends AuditError
 {

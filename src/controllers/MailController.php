@@ -1,17 +1,17 @@
 <?php
 
-namespace bedezign\yii2\audit\controllers;
+namespace saritasa\yii2\audit\controllers;
 
-use bedezign\yii2\audit\components\Helper;
-use bedezign\yii2\audit\components\web\Controller;
-use bedezign\yii2\audit\models\AuditMail;
-use bedezign\yii2\audit\models\AuditMailSearch;
+use saritasa\yii2\audit\components\Helper;
+use saritasa\yii2\audit\components\web\Controller;
+use saritasa\yii2\audit\models\AuditMail;
+use saritasa\yii2\audit\models\AuditMailSearch;
 use Yii;
 use yii\web\NotFoundHttpException;
 
 /**
  * MailController
- * @package bedezign\yii2\audit\controllers
+ * @package saritasa\yii2\audit\controllers
  */
 class MailController extends Controller
 {

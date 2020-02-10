@@ -1,18 +1,18 @@
 <?php
 
-namespace bedezign\yii2\audit\models;
+namespace saritasa\yii2\audit\models;
 
-use bedezign\yii2\audit\Audit;
+use saritasa\yii2\audit\Audit;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-use bedezign\yii2\audit\models\AuditEntry;
+use saritasa\yii2\audit\models\AuditEntry;
 use yii\db\ActiveQuery;
 
 /**
  * Class AuditEntrySearch
- * @package bedezign\yii2\audit\models
+ * @package saritasa\yii2\audit\models
  */
 class AuditEntrySearch extends AuditEntry
 {
@@ -54,7 +54,7 @@ class AuditEntrySearch extends AuditEntry
         ]);
 		if(isset($params['user_id']))
 			$params['AuditEntrySearch']['user_id'] = $params['user_id'];
-		
+
         // load the search form data and validate
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;

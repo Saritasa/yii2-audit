@@ -1,12 +1,12 @@
 <?php
 
-namespace bedezign\yii2\audit\web;
+namespace saritasa\yii2\audit\web;
 
 use yii\web\AssetBundle;
 
 /**
  * AuditAsset
- * @package bedezign\yii2\audit\assets
+ * @package saritasa\yii2\audit\assets
  */
 class AuditAsset extends AssetBundle
 {

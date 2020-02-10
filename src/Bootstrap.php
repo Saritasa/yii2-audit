@@ -21,7 +21,7 @@ class Bootstrap implements BootstrapInterface
         \Yii::setAlias('@bedezign/yii2/audit', __DIR__);
 
         if ($app instanceof \yii\console\Application) {
-            $app->controllerMap['audit'] = 'bedezign\yii2\audit\commands\AuditController';
+            $app->controllerMap['audit'] = 'saritasa\yii2\audit\commands\AuditController';
         }
 
         $moduleName = Audit::findModuleIdentifier();

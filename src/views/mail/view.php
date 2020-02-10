@@ -3,8 +3,8 @@
 /** @var View $this */
 /** @var AuditMail $model */
 
-use bedezign\yii2\audit\components\Helper;
-use bedezign\yii2\audit\models\AuditMail;
+use saritasa\yii2\audit\components\Helper;
+use saritasa\yii2\audit\models\AuditMail;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\DetailView;

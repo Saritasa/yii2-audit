@@ -7,11 +7,11 @@
  * @copyright 2015 B&E DeZign
  */
 
-namespace bedezign\yii2\audit\components\panels;
+namespace saritasa\yii2\audit\components\panels;
 
 /**
  * Panel
- * @package bedezign\yii2\audit\panels
+ * @package saritasa\yii2\audit\panels
  *
  * @property array|mixed $data
  */

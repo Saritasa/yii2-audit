@@ -1,11 +1,11 @@
 <?php
 
-use bedezign\yii2\audit\Audit;
-use bedezign\yii2\audit\components\Access;
+use saritasa\yii2\audit\Audit;
+use saritasa\yii2\audit\components\Access;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var bedezign\yii2\audit\models\AuditEntry $entry */
+/** @var saritasa\yii2\audit\models\AuditEntry $entry */
 
 if ($auditEntry = Audit::getInstance()->getEntry()) {
     $style = YII_DEBUG ? '' : 'color:transparent;';

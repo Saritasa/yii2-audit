@@ -1,10 +1,10 @@
 <?php
 
-use bedezign\yii2\audit\Audit;
+use saritasa\yii2\audit\Audit;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-use bedezign\yii2\audit\models\AuditEntrySearch;
+use saritasa\yii2\audit\models\AuditEntrySearch;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -23,13 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
 					</div>
 				</div>
 		<div class="portlet-body">
-			<?php  
+			<?php
 				if($user_id != 0 && $type == 'vendor'){
 					echo $this->render('vendor/_tab',[
 						'active' => 'activitylog',
 						'vendor_id' => $user_id,
 					]);
-				
+
 				}elseif($user_id != 0 && $type == "member"){
 					echo $this->render('member/_tab',[
 						'active' => 'activitylog',
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						//return '';
 						return Html::a(
 							'<button type="button" class="btn purple"><i class="fa fa-eye"></i></button>',
-							['view','id'=>$model->id], 
+							['view','id'=>$model->id],
 							[
 								'title' => 'View',
 								'data-pjax' => '0',
@@ -56,8 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
 							]
 						);
 					},
-				'update' => function($url){ return '';},	
-				'delete' => function($url){ return '';},	
+				'update' => function($url){ return '';},
+				'delete' => function($url){ return '';},
 				]
 			],
             'id',

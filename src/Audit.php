@@ -10,7 +10,7 @@
 
 namespace bedezign\yii2\audit;
 
-use bedezign\yii2\audit\models\AuditEntry;
+use saritasa\yii2\audit\models\AuditEntry;
 use Yii;
 use yii\base\ActionEvent;
 use yii\base\Application;
@@ -27,12 +27,12 @@ use yii\helpers\ArrayHelper;
  * To configure it you need to do 2 things:
  * - add a module configuration entry:
  *     'modules' => [
- *        'audit' => 'bedezign\yii2\audit\Audit',
+ *        'audit' => 'saritasa\yii2\audit\Audit',
  *     ]
  *   or optionally with configuration:
  *     'modules' => [
  *        'audit' => [
- *            'class' => 'bedezign\yii2\audit\Audit',
+ *            'class' => 'saritasa\yii2\audit\Audit',
  *            'ignoreActions' => ['debug/*']
  *     ]
  * - If you want to auto track actions, be sure to add the module to the application bootstrapping:
@@ -156,26 +156,26 @@ class Audit extends Module
      */
     private $_corePanels = [
         // Tracking/logging panels
-        'audit/request'    => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-        'audit/db'         => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-        'audit/log'        => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-        'audit/asset'      => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-        'audit/config'     => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-        'audit/profiling'  => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+        'audit/request'    => ['class' => 'saritasa\yii2\audit\panels\RequestPanel'],
+        'audit/db'         => ['class' => 'saritasa\yii2\audit\panels\DbPanel'],
+        'audit/log'        => ['class' => 'saritasa\yii2\audit\panels\LogPanel'],
+        'audit/asset'      => ['class' => 'saritasa\yii2\audit\panels\AssetPanel'],
+        'audit/config'     => ['class' => 'saritasa\yii2\audit\panels\ConfigPanel'],
+        'audit/profiling'  => ['class' => 'saritasa\yii2\audit\panels\ProfilingPanel'],
 
         // Special other panels
-        'audit/error'      => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-        'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-        'audit/trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
-        'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-        'audit/extra'      => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
-        'audit/curl'       => ['class' => 'bedezign\yii2\audit\panels\CurlPanel'],
+        'audit/error'      => ['class' => 'saritasa\yii2\audit\panels\ErrorPanel'],
+        'audit/javascript' => ['class' => 'saritasa\yii2\audit\panels\JavascriptPanel'],
+        'audit/trail'      => ['class' => 'saritasa\yii2\audit\panels\TrailPanel'],
+        'audit/mail'       => ['class' => 'saritasa\yii2\audit\panels\MailPanel'],
+        'audit/extra'      => ['class' => 'saritasa\yii2\audit\panels\ExtraDataPanel'],
+        'audit/curl'       => ['class' => 'saritasa\yii2\audit\panels\CurlPanel'],
     ];
 
     private $_panelFunctions = [];
 
     /**
-     * @var \bedezign\yii2\audit\models\AuditEntry If activated this is the active entry
+     * @var \saritasa\yii2\audit\models\AuditEntry If activated this is the active entry
      */
     private $_entry = null;
 

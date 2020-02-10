@@ -1,15 +1,15 @@
 <?php
 
-namespace bedezign\yii2\audit\panels;
+namespace saritasa\yii2\audit\panels;
 
-use bedezign\yii2\audit\components\panels\Panel;
-use bedezign\yii2\audit\models\AuditJavascriptSearch;
+use saritasa\yii2\audit\components\panels\Panel;
+use saritasa\yii2\audit\models\AuditJavascriptSearch;
 use Yii;
 use yii\grid\GridViewAsset;
 
 /**
  * JavascriptPanel
- * @package bedezign\yii2\audit\panels
+ * @package saritasa\yii2\audit\panels
  */
 class JavascriptPanel extends Panel
 {

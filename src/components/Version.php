@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 
 /**
  * Version
- * @package bedezign\yii2\audit
+ * @package saritasa\yii2\audit
  */
 class Version extends Component
 {

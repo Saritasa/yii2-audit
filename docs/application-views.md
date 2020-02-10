@@ -61,12 +61,12 @@ class PostController extends \yii\web\Controller
 
 simple:
 ```php
-echo $this->render('@bedezign/yii2/audit/views/_audit_trails', ['query' => $model->getAuditTrails()]);
+echo $this->render('@saritasa/yii2/audit/views/_audit_trails', ['query' => $model->getAuditTrails()]);
 ```
 
 all options:
 ```php
-echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
+echo $this->render('@saritasa/yii2/audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
     'query' => $model->getAuditTrails(),
     // params for the AuditTrailSearch::search() (optional)
@@ -88,7 +88,7 @@ echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
 It is often useful for users to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
 
 ```php
-<?= $this->render('@bedezign/yii2/audit/views/_audit_entry_id'); ?>
+<?= $this->render('@saritasa/yii2/audit/views/_audit_entry_id'); ?>
 ```
 
 Please note, this will not create an audit entry and will only display if an audit entry exists.

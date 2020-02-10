@@ -8,7 +8,7 @@ Word of caution: The module is configured by default to only allow viewing acces
 ```php
 'modules' => [
     'audit' => [
-        'class' => 'bedezign\yii2\audit\Audit',
+        'class' => 'saritasa\yii2\audit\Audit',
         // the layout that should be applied for views within this module
         'layout' => 'main',
         // Name of the component to use for database access
@@ -54,7 +54,7 @@ If you only want to log the database changes, javascript and errors you should u
 ```php
 'modules' => [
     'audit' => [
-        'class' => 'bedezign\yii2\audit\Audit',
+        'class' => 'saritasa\yii2\audit\Audit',
         'ignoreActions' => ['*'],
     ],
 ],

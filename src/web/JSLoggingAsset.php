@@ -19,7 +19,7 @@ class JSLoggingAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@bedezign/yii2/audit/web/assets';
+    public $sourcePath = '@saritasa/yii2/audit/web/assets';
 
     /**
      * @var array

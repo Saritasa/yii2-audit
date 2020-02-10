@@ -1,13 +1,13 @@
 <?php
 
-namespace bedezign\yii2\audit;
+namespace saritasa\yii2\audit;
 
 
 use yii\base\Component;
 
 /**
  * Class Provider
- * @package bedezign\yii2\audit
+ * @package saritasa\yii2\audit
  */
 class Provider extends Component
 {

@@ -17,7 +17,7 @@ First we need to implement the `Panel` class in `panels/ViewsPanel.php`:
 <?php
 namespace app\panels;
 
-use bedezign\yii2\audit\components\panels\Panel;
+use saritasa\yii2\audit\components\panels\Panel;
 use yii\base\Event;
 use yii\base\ViewEvent;
 use yii\web\View;
@@ -92,7 +92,7 @@ Now it's time to tell audit to use the new panel. In `config/web.php`, the audit
 $config = [
     'modules' => [
         'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
+            'class' => 'saritasa\yii2\audit\Audit',
             'panels' => [
                 'app/views' => 'app\panels\ViewsPanel',
             ],

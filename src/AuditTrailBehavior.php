@@ -1,5 +1,5 @@
 <?php
-namespace bedezign\yii2\audit;
+namespace saritasa\yii2\audit;
 
 use Yii;
 use yii\base\Exception;
@@ -10,7 +10,7 @@ use yii\web\Application;
 
 /**
  * Class AuditTrailBehavior
- * @package bedezign\yii2\audit
+ * @package saritasa\yii2\audit
  *
  * @property \yii\db\ActiveRecord $owner
  */

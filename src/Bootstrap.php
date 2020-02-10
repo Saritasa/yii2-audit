@@ -1,12 +1,12 @@
 <?php
 
-namespace bedezign\yii2\audit;
+namespace saritasa\yii2\audit;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 
 /**
  * Bootstrap
- * @package bedezign\yii2\audit
+ * @package saritasa\yii2\audit
  */
 class Bootstrap implements BootstrapInterface
 {
@@ -18,7 +18,7 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         // Make sure to register the base folder as alias as well or things like assets won't work anymore
-        \Yii::setAlias('@bedezign/yii2/audit', __DIR__);
+        \Yii::setAlias('@saritasa/yii2/audit', __DIR__);
 
         if ($app instanceof \yii\console\Application) {
             $app->controllerMap['audit'] = 'saritasa\yii2\audit\commands\AuditController';
@@ -35,7 +35,7 @@ class Bootstrap implements BootstrapInterface
             $app->i18n->translations['audit'] = [
                 'class'          => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en',
-                'basePath'       => '@bedezign/yii2/audit/messages',
+                'basePath'       => '@saritasa/yii2/audit/messages',
             ];
         }
     }

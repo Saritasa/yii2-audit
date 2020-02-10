@@ -2,8 +2,8 @@
 /**
  *
  *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.sa-portal.inet.telenet.be
+ * @author    Steve Guns <steve@saritasa.com>
+ * @package   com.saritasa.sa-portal.inet.telenet.be
  * @copyright 2015 B&E DeZign
  */
 

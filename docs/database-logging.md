@@ -14,7 +14,7 @@ class Post extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'bedezign\yii2\audit\AuditTrailBehavior'
+            'saritasa\yii2\audit\AuditTrailBehavior'
         ];
     }
 }
@@ -33,7 +33,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'AuditTrailBehavior' => [
-                'class' => 'bedezign\yii2\audit\AuditTrailBehavior',
+                'class' => 'saritasa\yii2\audit\AuditTrailBehavior',
                 // Array with fields to save. You don't need to configure both `allowed` and `ignored`
                 'allowed' => ['some_field'],
                 // Array with fields to ignore. You don't need to configure both `allowed` and `ignored`
@@ -59,7 +59,7 @@ class Post extends \yii\db\ActiveRecord
 $post_id = 1;
 Post::findOne($post_id)->delete();
 // ... time passes ...
-$post = \bedezign\yii2\audit\components\Version::find(Post::className(), $post_id);
+$post = \saritasa\yii2\audit\components\Version::find(Post::className(), $post_id);
 $post->save();
 ```
 
@@ -70,14 +70,14 @@ $post = Post::findOne(1);
 $post->title = 'updated post title';
 $post->save();
 // ... time passes ...
-$post = \bedezign\yii2\audit\components\Version::find($post->className(), $post->id);
+$post = \saritasa\yii2\audit\components\Version::find($post->className(), $post->id);
 $post->save();
 ```
 
 ### Rolling Back to Any Version
 
 ```php
-use bedezign\yii2\audit\components\Version;
+use saritasa\yii2\audit\components\Version;
 
 // get all versions
 $versions = Version::versions($post->className(), $post->id));

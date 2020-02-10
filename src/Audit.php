@@ -3,12 +3,12 @@
  * This serves as both the Module for the MVC part of the audit and the configuration/entry point for the actual
  * audit process.
  *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
+ * @author    Steve Guns <steve@saritasa.com>
+ * @package   com.saritasa.yii2.audit
  * @copyright 2014-2015 B&E DeZign
  */
 
-namespace bedezign\yii2\audit;
+namespace saritasa\yii2\audit;
 
 use saritasa\yii2\audit\models\AuditEntry;
 use Yii;
@@ -38,7 +38,7 @@ use yii\helpers\ArrayHelper;
  * - If you want to auto track actions, be sure to add the module to the application bootstrapping:
  *    'bootstrap' => ['audit'],
  *
- * @package bedezign\yii2\audit
+ * @package saritasa\yii2\audit
  * @property AuditEntry $entry
  *
  * @method void data($type, $data)                                      @see ExtraDataPanel::trackData()

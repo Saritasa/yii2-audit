@@ -1,10 +1,10 @@
 # Javascript Logging
 
 The module also supports logging of javascript errors, warnings and even regular log entries.
-To activate, register the `\bedezign\yii2\audit\web\JSLoggingAsset` in any of your views:
+To activate, register the `\saritasa\yii2\audit\web\JSLoggingAsset` in any of your views:
 
 ```php
-\bedezign\yii2\audit\web\JSLoggingAsset::register($this);
+\saritasa\yii2\audit\web\JSLoggingAsset::register($this);
 ```
 
 This will activate the logger automatically. By default all warnings and errors are transmitted to the backend.

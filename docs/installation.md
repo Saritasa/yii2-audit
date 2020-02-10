@@ -5,7 +5,7 @@
 Download using composer by running the following command:
 
 ```
-$ composer require --prefer-dist bedezign/yii2-audit "*"
+$ composer require --prefer-dist saritasa/yii2-audit "*"
 ```
 
 Or add a `require` line to your `composer.json`: 
@@ -13,7 +13,7 @@ Or add a `require` line to your `composer.json`:
 ```
 {
     "require": {
-        "bedezign/yii2-audit": "*"
+        "saritasa/yii2-audit": "*"
     }
 }
 ```
@@ -23,7 +23,7 @@ Or add a `require` line to your `composer.json`:
 Run the migrations from the `migrations` folder to create the relevant tables:  
 
 ```
-$ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations
+$ php yii migrate --migrationPath=@saritasa/yii2/audit/migrations
 ```
 
 ## Module Configuration
@@ -33,7 +33,7 @@ Add `Audit` to your configuration array:
 ```php
 $config = [
     'modules' => [
-        'audit' => 'bedezign\yii2\audit\Audit',
+        'audit' => 'saritasa\yii2\audit\Audit',
     ],
 ];
 ```
@@ -50,7 +50,7 @@ class Post extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'bedezign\yii2\audit\AuditTrailBehavior'
+            'saritasa\yii2\audit\AuditTrailBehavior'
         ];
     }
 }
@@ -63,7 +63,7 @@ See [Database Logging](database-logging.md) for the all configuration options an
 Register `JSLoggingAsset` in any of your views:
 
 ```php
-\bedezign\yii2\audit\web\JSLoggingAsset::register($this);
+\saritasa\yii2\audit\web\JSLoggingAsset::register($this);
 ```
 
 See [Javascript Logging](javascript-logging.md) for the all configuration options and advanced usage information.
@@ -76,7 +76,7 @@ Add `ErrorHandler` to your configuration array:
 $config = [
     'components' => [
         'errorHandler' => [
-           'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+           'class' => '\saritasa\yii2\audit\components\web\ErrorHandler',
         ],
     ],
 ];

@@ -24,7 +24,7 @@ Then update the audit module in your config array:
 $config = [
     'modules' => [
         'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
+            'class' => 'saritasa\yii2\audit\Audit',
             'userIdentifierCallback' => ['app\models\User', 'userIdentifierCallback'],
         ],
     ],
@@ -59,7 +59,7 @@ And your module configuration:
 $config = [
     'modules' => [
         'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
+            'class' => 'saritasa\yii2\audit\Audit',
             'userFilterCallback' => ['app\models\User', 'filterByUserIdentifierCallback'],
         ],
     ],

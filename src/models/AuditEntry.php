@@ -158,7 +158,7 @@ class AuditEntry extends ActiveRecord
         $this->route = $app->requestedAction ? $app->requestedAction->uniqueId : null;
         if ($request instanceof \yii\web\Request) {
             $this->user_id        = Audit::getInstance()->getUserId();
-            $this->ip             = $this->getUserIP();
+            $this->ip             = $request->remoteIP;
             $this->ajax           = $request->isAjax;
             $this->request_method = $request->method;
         } else if ($request instanceof \yii\console\Request) {

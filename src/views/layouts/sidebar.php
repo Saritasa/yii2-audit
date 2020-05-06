@@ -10,7 +10,7 @@ use yii\helpers\Url;
 			$action  = Yii::$app->controller->action->id;
 			if($action == 1)
 				$action = Yii::$app->controller->action->actionMethod;
-			$AdminManagement = '';
+			$AdminManagement = [];
 		
 			if(Yii::$app->user->identity->en_role == 'SuperAdmin'){
 				$AdminManagement =  [
